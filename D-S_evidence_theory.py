@@ -53,18 +53,27 @@ class DStheory:
             pass
         pass
 
-    def __findIntersection (self, index: int):
-        # 找到交集有且仅有index对应的Event的所有BPA下标列表
-        i0 = 2 ** index
-        level1 = []
-        for i in range(self.lenFrame):
-            level2 = []
-            if i & i0 == i0 and :
-                pass
-        pass
+    def __findIntersection (self, index: int, length: int):
+        # 从self.lenFrame个集合中找到所有的长度为length的集合，该集合需满足它们的交集只有self.Events[index]指向的那个事件.
+        # 最简单的遍历方法。遍历每一种组合，然后验证它们是否满足条件。
+        group = []
+        for i in range(length):
+            hashtable = dict()
+            turn = 0
+            for j in range(self.lenFrame):
+                if j & (1<<i):
+                    hashtable[turn] = j
+                    turn += 1
+            for j in range(turn):
+                for k in range(j+1, turn):
+                    if hashtable[j] & hashtable[k] == 0:
+                        group.append([hashtable[j], hashtable[k]])
+        return group
 
-    def __findOR(self, A: list, B: list):
+    def __findUnion (self, index: int, length: int):
+        # 从self.lenFrame个集合中找到所有的长度为length的集合，该集合需满足它们的并集包含self.Events[index]指向的那个事件.
         pass
+    
 
     # Show the frame
     def showFrame(self):
